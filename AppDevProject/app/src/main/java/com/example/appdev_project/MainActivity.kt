@@ -11,29 +11,13 @@ import kotlinx.coroutines.withContext
 import androidx.navigation.fragment.NavHostFragment
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var questions: List<Questions>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val db = Room.databaseBuilder(
-            applicationContext,
-            QuestionsDatabase::class.java, "questions"
-            ).createFromAsset("questions.json")
-            .fallbackToDestructiveMigration()
-            .build()
 
-
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                questions = db.questionsDao().getAll()
-            }
-            val textView = findViewById<TextView>(R.id.textView)
-            textView.text = questions[0].answer1
-
-            
-        }
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
