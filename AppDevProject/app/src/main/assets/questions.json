@@ -1,0 +1,91 @@
+[{
+  "question": "Which planet is known as the 'Red Planet'?",
+  "answer1": "Venus",
+  "answer2": "Mars",
+  "answer3": "Jupiter",
+  "answer4": "Saturn",
+  "correctAnswer": 2,
+  "alreadyUsed": false
+},
+{
+"question": "Who wrote the novel 'Pride and Prejudice'?",
+"answer1": "Jane Austen",
+"answer2": "Charlotte Brontë",
+"answer3": "Emily Dickinson",
+"answer4": "Virginia Woolf",
+"correctAnswer": 1,
+"alreadyUsed": false
+},
+{
+"question": "What is the chemical symbol for gold?",
+"answer1": "Ag",
+"answer2": "Fe",
+"answer3": "Au",
+"answer4": "Pb",
+"correctAnswer": 3,
+"alreadyUsed": false
+},
+{
+"question": "Which country is famous for its tulips?",
+"answer1": "France",
+"answer2": "Germany",
+"answer3": "Netherlands",
+"answer4": "Italy",
+"correctAnswer": 3,
+"alreadyUsed": false
+},
+{
+"question": "What is the largest ocean on Earth?",
+"answer1": "Indian Ocean",
+"answer2": "Atlantic Ocean",
+"answer3": "Arctic Ocean",
+"answer4": "Pacific Ocean",
+"correctAnswer": 4,
+"alreadyUsed": false
+},
+{
+"question": "Which famous scientist developed the theory of general relativity?",
+"answer1": "Isaac Newton",
+"answer2": "Albert Einstein",
+"answer3": "Marie Curie",
+"answer4": "Nikola Tesla",
+"correctAnswer": 2,
+"alreadyUsed": false
+},
+{
+"question": "Who painted the famous artwork 'The Starry Night'?",
+"answer1": "Leonardo da Vinci",
+"answer2": "Vincent van Gogh",
+"answer3": "Pablo Picasso",
+"answer4": "Michelangelo",
+"correctAnswer": 2,
+"alreadyUsed": false
+},
+{
+"question": "What is the capital city of Australia?",
+"answer1": "Sydney",
+"answer2": "Melbourne",
+"answer3": "Canberra",
+"answer4": "Brisbane",
+"correctAnswer": 3,
+"alreadyUsed": false
+},
+{
+"question": "Which country hosted the 2016 Summer Olympics?",
+"answer1": "United States",
+"answer2": "Brazil",
+"answer3": "China",
+"answer4": "Russia",
+"correctAnswer": 2,
+"alreadyUsed": false
+},
+{
+"question": "What is the main component of Earth's atmosphere?",
+"answer1": "Oxygen",
+"answer2": "Nitrogen",
+"answer3": "Carbon dioxide",
+"answer4": "Hydrogen",
+"correctAnswer": 2,
+"alreadyUsed": false
+}
+  ]
