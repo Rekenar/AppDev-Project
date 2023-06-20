@@ -2,4 +2,8 @@
     <string name="app_name">AppDev-Project</string>
     <string name="start">Start</string>
     <string name="example_question">Example Question</string>
+    <string name="answer_1">Answer 1</string>
+    <string name="answer_2">Answer 2</string>
+    <string name="answer_3">Answer 3</string>
+    <string name="answer_4">Answer 4</string>
 </resources>

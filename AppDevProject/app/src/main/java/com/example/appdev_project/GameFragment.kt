@@ -16,15 +16,14 @@ import java.io.File
 
 
 class GameFragment : Fragment() {
-lateinit var questionText: TextView
-lateinit var buttons :Array<Button>
+    lateinit var questionText: TextView
+    lateinit var buttons :Array<Button>
+    lateinit var pointsView : TextView
+    var pointCounter : Int = 0
     private lateinit var questions: List<Questions>
     private var questionIndex:Int = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -35,7 +34,7 @@ lateinit var buttons :Array<Button>
                           view.findViewById(R.id.btn_Ans2),
                           view.findViewById(R.id.btn_Ans3),
                           view.findViewById(R.id.btn_Ans4))
-
+        pointsView = view.findViewById(R.id.txt_Points)
         val db = Room.databaseBuilder(
             activity!!.applicationContext,
             QuestionsDatabase::class.java, "questions"
@@ -98,6 +97,10 @@ lateinit var buttons :Array<Button>
         }
 
 
+    }
+    fun addPoint(){
+        pointCounter++
+        pointsView.text = pointCounter.toString()
     }
 
     override fun onDestroy() {

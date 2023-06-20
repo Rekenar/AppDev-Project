@@ -18,7 +18,23 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.134" />
+        app:layout_constraintVertical_bias="0.219" />
+
+    <TextView
+    android:id="@+id/txt_Points"
+    android:layout_width="97dp"
+    android:layout_height="47dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+    android:layout_marginStart="354dp"
+    android:layout_marginTop="19dp"
+    android:layout_marginBottom="693dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="1.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.107" />
 
     <LinearLayout
         android:layout_width="418dp"
@@ -36,7 +52,7 @@
             android:layout_height="0dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="Answer 1" />
+            android:text="@string/answer_1" />
 
         <Button
             android:id="@+id/btn_Ans2"
@@ -44,7 +60,7 @@
             android:layout_height="0dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="Answer 2" />
+            android:text="@string/answer_2" />
 
         <Button
             android:id="@+id/btn_Ans3"
@@ -52,7 +68,7 @@
             android:layout_height="0dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="Answer 3" />
+            android:text="@string/answer_3" />
 
         <Button
             android:id="@+id/btn_Ans4"
@@ -60,9 +76,11 @@
             android:layout_height="0dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="Answer 4" />
+            android:text="@string/answer_4" />
 
 
     </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
