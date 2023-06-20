@@ -50,11 +50,6 @@ class GameFragment : Fragment() {
                           view.findViewById(R.id.btn_Ans3),
                           view.findViewById(R.id.btn_Ans4))
         pointsView = view.findViewById(R.id.txt_Points)
-        val db = Room.databaseBuilder(
-            activity!!.applicationContext,
-            QuestionsDatabase::class.java, "questions"
-        ).fallbackToDestructiveMigration()
-            .build()
 
         for (i in 0..3){
             buttons[i].setOnClickListener {
