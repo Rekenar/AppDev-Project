@@ -9,21 +9,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.lifecycleScope
-import androidx.room.Room
 import com.example.appdev_project.database.Questions
 import com.example.appdev_project.database.QuestionsDatabase
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
-import kotlin.random.Random
 
 
 class GameFragment : Fragment() {

@@ -25,6 +25,4 @@ class StartFragment : Fragment() {
 
         return view
     }
-
-
 }
