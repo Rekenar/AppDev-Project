@@ -23,6 +23,7 @@ import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
+import kotlin.random.Random
 
 
 class GameFragment : Fragment() {
@@ -56,7 +57,7 @@ class GameFragment : Fragment() {
 
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
-                questions = db.questionsDao().getAll()
+                questions = db.questionsDao().getAll().shuffled()
             }
             updateQuestion()
         }
@@ -75,6 +76,7 @@ class GameFragment : Fragment() {
             updateQuestion()
         }
     }
+
 
     private fun updateQuestion(){
         if(questionIndex < questions.size && questions.isNotEmpty()){
