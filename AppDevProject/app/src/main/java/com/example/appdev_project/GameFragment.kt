@@ -12,7 +12,6 @@ import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.File
 
 
 class GameFragment : Fragment() {
@@ -28,12 +27,16 @@ class GameFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_game, container, false)
+        return inflater.inflate(R.layout.fragment_game, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         questionText = view.findViewById(R.id.txt_Question)
         buttons = arrayOf(view.findViewById(R.id.btn_Ans1),
-                          view.findViewById(R.id.btn_Ans2),
-                          view.findViewById(R.id.btn_Ans3),
-                          view.findViewById(R.id.btn_Ans4))
+            view.findViewById(R.id.btn_Ans2),
+            view.findViewById(R.id.btn_Ans3),
+            view.findViewById(R.id.btn_Ans4))
         pointsView = view.findViewById(R.id.txt_Points)
         val db = Room.databaseBuilder(
             activity!!.applicationContext,
@@ -80,10 +83,7 @@ class GameFragment : Fragment() {
             nextQuestion(4)
         }
 
-
-        return view
     }
-
     fun nextQuestion(number:Int){
         //if(number == questions[questionIndex].correctAnswer){       }
 
