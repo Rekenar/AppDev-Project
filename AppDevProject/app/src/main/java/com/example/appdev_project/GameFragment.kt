@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.example.appdev_project.database.Questions
+import com.example.appdev_project.database.QuestionsDataClass
 import com.example.appdev_project.database.QuestionsDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,11 +19,12 @@ import kotlinx.coroutines.withContext
 
 
 class GameFragment : Fragment() {
+
     lateinit var questionText: TextView
     lateinit var buttons :Array<Button>
     lateinit var pointsView : TextView
     var pointCounter : Int = 0
-    private lateinit var questions: List<Questions>
+    private lateinit var questions: List<QuestionsDataClass>
     private var questionIndex:Int = 0
     lateinit var db:QuestionsDatabase
 
@@ -44,14 +46,14 @@ class GameFragment : Fragment() {
 
         for (i in 0..3){
             buttons[i].setOnClickListener {
-                nextQuestion(i+1)
+                nextQuestion(i)
             }
         }
 
 
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
-                questions = db.questionsDao().getAll().shuffled()
+                questions = convertQuestionsListToQuestionsDataClassList(db.questionsDao().getAll()).shuffled()
             }
             updateQuestion()
         }
@@ -60,12 +62,9 @@ class GameFragment : Fragment() {
 
     private fun nextQuestion(number: Int) {
         if (questionIndex < questions.size) {
-            if (number == questions[questionIndex].correctAnswer) {
-                Toast.makeText(requireContext(), "Correct Answer", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(requireContext(), "Incorrect Answer", Toast.LENGTH_SHORT).show()
+            if(questions[questionIndex].answers[number] == questions[questionIndex].correctAnswer){
+                Toast.makeText(context, "Correct", Toast.LENGTH_SHORT).show()
             }
-
             questionIndex++
             updateQuestion()
         }
@@ -75,10 +74,10 @@ class GameFragment : Fragment() {
     private fun updateQuestion(){
         if(questionIndex < questions.size && questions.isNotEmpty()){
             questionText.text = questions[questionIndex].question
-            buttons[0].text = questions[questionIndex].answer1
-            buttons[1].text = questions[questionIndex].answer2
-            buttons[2].text = questions[questionIndex].answer3
-            buttons[3].text = questions[questionIndex].answer4
+            buttons[0].text = questions[questionIndex].answers[0]
+            buttons[1].text = questions[questionIndex].answers[1]
+            buttons[2].text = questions[questionIndex].answers[2]
+            buttons[3].text = questions[questionIndex].answers[3]
         }
     }
     fun addPoint(){
@@ -88,6 +87,28 @@ class GameFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        db = QuestionsDatabase.getDB(context, lifecycleScope)
+        db = QuestionsDatabase.getDB(context)
     }
+
+    private fun convertQuestionsListToQuestionsDataClassList(questionsList: List<Questions>): List<QuestionsDataClass> {
+        return questionsList.map { questions ->
+            val answers = listOf(
+                questions.answer1,
+                questions.answer2,
+                questions.answer3,
+                questions.answer4
+            )
+
+            QuestionsDataClass(
+                uid = questions.uid,
+                identifier = questions.identifier,
+                category = questions.category,
+                question = questions.question,
+                answers = answers.shuffled(),
+                correctAnswer = questions.correctAnswer
+            )
+        }
+    }
+
+
 }

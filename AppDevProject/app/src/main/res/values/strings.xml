@@ -6,4 +6,38 @@
     <string name="answer_2">Answer 2</string>
     <string name="answer_3">Answer 3</string>
     <string name="answer_4">Answer 4</string>
+    <string name="create_quiz">Create Quiz</string>
+
+    <string-array name="quiz_categories">
+        <item>General Knowledge</item>
+        <item>Entertainment: Books</item>
+        <item>Entertainment: Film</item>
+        <item>Entertainment: Music</item>
+        <item>Entertainment: Musical &amp; Theatres</item>
+        <item>Entertainment: Television</item>
+        <item>Entertainment: Video Games</item>
+        <item>Entertainment: Board Games</item>
+        <item>Science &amp; Nature</item>
+        <item>Science: Computers</item>
+        <item>Science: Mathematics</item>
+        <item>Mythology</item>
+        <item>Sports</item>
+        <item>Geography</item>
+        <item>History</item>
+        <item>Politics</item>
+        <item>Art</item>
+        <item>Celebrities</item>
+        <item>Animals</item>
+        <item>Vehicles</item>
+        <item>Entertainment: Comics</item>
+        <item>Science: Gadgets</item>
+        <item>Entertainment: Entertainment: Japanese Anime &amp; Manga</item>
+        <item>Entertainment: Entertainment: Cartoon &amp; Animations</item>
+    </string-array>
+
+    <string-array name="quiz_difficulties">
+        <item>easy</item>
+        <item>medium</item>
+        <item>hard</item>
+    </string-array>
 </resources>
