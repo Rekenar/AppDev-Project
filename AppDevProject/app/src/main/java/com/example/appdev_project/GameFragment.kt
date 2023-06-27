@@ -61,7 +61,6 @@ class GameFragment : Fragment() {
             }
             updateQuestion()
         }
-        return view
     }
 
     private fun nextQuestion(number: Int) {

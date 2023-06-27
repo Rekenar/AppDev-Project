@@ -10,11 +10,6 @@
         android:label="fragment_start"
         tools:layout="@layout/fragment_start" >
         <action
-            android:id="@+id/action_startFragment_to_gameFragment"
-            app:destination="@id/gameFragment" />
-        <action
-            android:id="@+id/action_startFragment_to_createQuizFragment"
-            app:destination="@id/createQuizFragment" />
             android:id="@+id/action_startFragment_to_achievementFragment"
             app:destination="@id/achievementFragment" />
         <action
@@ -26,9 +21,7 @@
         android:name="com.example.appdev_project.GameFragment"
         android:label="fragment_game"
         tools:layout="@layout/fragment_game" >
-        <action
-            android:id="@+id/action_gameFragment_to_overviewFragment"
-            app:destination="@id/overviewFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/achievementFragment"
@@ -43,14 +36,13 @@
         android:id="@+id/createQuizFragment"
         android:name="com.example.appdev_project.CreateQuizFragment"
         android:label="fragment_createquiz"
-        tools:layout="@layout/fragment_createquiz" >
-        <action
-            android:id="@+id/action_createQuizFragment_to_startFragment"
-            app:destination="@id/startFragment" />
+        tools:layout="@layout/fragment_createquiz" />
+        <fragment
         android:id="@+id/categoriesFragment"
         android:name="com.example.appdev_project.Categories.CategoriesFragment"
         android:label="fragment_categories"
         tools:layout="@layout/fragment_categories" >
+
         <action
             android:id="@+id/action_categoriesFragment_to_startFragment"
             app:destination="@id/startFragment" />
@@ -69,8 +61,6 @@
         <action
             android:id="@+id/action_overviewFragment_to_categoriesFragment"
             app:destination="@id/categoriesFragment" />
-        <action
-            android:id="@+id/action_overviewFragment_to_gameFragment"
-            app:destination="@id/gameFragment" />
+
     </fragment>
 </navigation>
