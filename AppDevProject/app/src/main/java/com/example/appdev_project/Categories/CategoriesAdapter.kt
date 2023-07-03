@@ -22,7 +22,7 @@ class CategoriesAdapter(private val mList: List<Category>): RecyclerView.Adapter
 
         holder.textView.text = databaseViewModel.name
         holder.itemView.setOnClickListener{
-            //TODO call category with safeargs
+            //TODO call category with safeargs identifier
             Navigation.createNavigateOnClickListener(R.id.overviewFragment).onClick(holder.itemView)
         }
 
