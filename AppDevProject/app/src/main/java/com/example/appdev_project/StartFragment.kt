@@ -8,15 +8,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.navigation.findNavController
-import androidx.sqlite.db.SimpleSQLiteQuery
-import com.example.appdev_project.database.QuestionsDatabase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class StartFragment : Fragment() {
      lateinit var btn_start : Button
      lateinit var btn_achievements : ImageButton
+    lateinit var createButton:Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -31,6 +28,12 @@ class StartFragment : Fragment() {
 
         btn_start = view.findViewById(R.id.btn_start)
         btn_start.setOnClickListener{ view.findNavController().navigate(R.id.categoriesFragment) }
+
+        createButton = view.findViewById(R.id.createButton)
+        createButton.setOnClickListener {
+            view.findNavController().navigate(R.id.createQuizFragment)
+        }
+
 
         btn_achievements = view.findViewById(R.id.btn_Achievements)
         btn_achievements.setOnClickListener { view.findNavController().navigate(R.id.achievementFragment) }

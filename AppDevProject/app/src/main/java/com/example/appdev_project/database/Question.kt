@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Questions(
+data class Question(
     @PrimaryKey(autoGenerate = true) val uid: Int = 0,
     val identifier: Int,
     val category: String,
@@ -15,3 +15,4 @@ data class Questions(
     val answer4:String,
     val correctAnswer:String
 )
+

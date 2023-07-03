@@ -1,6 +1,5 @@
 package com.example.appdev_project
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,10 +8,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.appdev_project.database.Questions
+import com.example.appdev_project.database.DatabaseViewModel
+import com.example.appdev_project.database.Question
 import com.example.appdev_project.database.QuestionsDataClass
-import com.example.appdev_project.database.QuestionsDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -26,7 +26,7 @@ class GameFragment : Fragment() {
     var pointCounter : Int = 0
     private lateinit var questions: List<QuestionsDataClass>
     private var questionIndex:Int = 0
-    lateinit var db:QuestionsDatabase
+    private val db by viewModels<DatabaseViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +48,7 @@ class GameFragment : Fragment() {
             view.findViewById(R.id.btn_Ans4))
         pointsView = view.findViewById(R.id.txt_Points)
 
+
         for (i in 0..3){
             buttons[i].setOnClickListener {
                 nextQuestion(i)
@@ -57,7 +58,7 @@ class GameFragment : Fragment() {
 
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
-                questions = convertQuestionsListToQuestionsDataClassList(db.questionsDao().getAll()).shuffled()
+                questions = convertQuestionsListToQuestionsDataClassList(db.getDB().questionsDao().getAll().shuffled())
             }
             updateQuestion()
         }
@@ -88,13 +89,10 @@ class GameFragment : Fragment() {
         pointsView.text = pointCounter.toString()
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        db = QuestionsDatabase.getDB(context)
-    }
 
-    private fun convertQuestionsListToQuestionsDataClassList(questionsList: List<Questions>): List<QuestionsDataClass> {
-        return questionsList.map { questions ->
+
+    private fun convertQuestionsListToQuestionsDataClassList(questionList: List<Question>): List<QuestionsDataClass> {
+        return questionList.map { questions ->
             val answers = listOf(
                 questions.answer1,
                 questions.answer2,

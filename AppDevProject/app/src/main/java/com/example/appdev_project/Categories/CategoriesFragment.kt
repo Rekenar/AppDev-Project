@@ -1,17 +1,18 @@
 package com.example.appdev_project.Categories
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.appdev_project.ItemsViewModel
+import com.example.appdev_project.database.DatabaseViewModel
 import com.example.appdev_project.R
-import com.example.appdev_project.database.QuestionsDao
-import com.example.appdev_project.database.QuestionsDatabase
+import com.example.appdev_project.database.Category
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -19,12 +20,12 @@ import kotlinx.coroutines.withContext
 
 class CategoriesFragment : Fragment() {
     private lateinit var categoriesView: RecyclerView
-    private lateinit var data : ArrayList<ItemsViewModel>
+    private lateinit var data : ArrayList<Category>
     private lateinit var adapter: CategoriesAdapter
+    private lateinit var db: DatabaseViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -36,13 +37,19 @@ class CategoriesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         categoriesView = view.findViewById(R.id.categoriesView)
         categoriesView.layoutManager = LinearLayoutManager(this.context)
-        data = ArrayList()
-        for (i in 1..20) { //This need to be linked to the DB to get the right amount of elements/achievements
-            data.add(ItemsViewModel( "Item " + i))  //Here goes the achievement name
+        db = ViewModelProvider(requireActivity()).get(DatabaseViewModel::class.java)
+
+
+        lifecycleScope.launch {
+            val fetchedData = withContext(Dispatchers.IO){
+                ArrayList(db.getDB().categoryDao().getAll())
+            }
+            data = fetchedData
+            adapter = CategoriesAdapter(data)
+            categoriesView.adapter = adapter
         }
 
-        adapter = CategoriesAdapter(data)
-        categoriesView.adapter = adapter
+
 
         /**
         lifecycleScope.launch {

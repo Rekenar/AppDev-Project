@@ -5,22 +5,19 @@ import androidx.room.*
 
 @Dao
 interface QuestionsDao {
-
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertQuestions(questions: Questions)
+    fun insertQuestions(question: Question)
 
-    @Query("Select question from questions where identifier = :identifier")
+    @Query("Select question from question where identifier = :identifier")
     fun getQuestions(identifier:Int):List<String>
 
-    @Query("SELECT * FROM questions")
-    fun getAll(): List<Questions>
+    @Query("SELECT * FROM question")
+    fun getAll(): List<Question>
 
-    @Query("SELECT Max(identifier) FROM questions")
+    @Query("SELECT Max(identifier) FROM question")
     fun getMaxIdentifier(): Int
 
-    @Query("DELETE FROM questions")
+    @Query("DELETE FROM question")
     fun deleteAllRows()
-
 }
 

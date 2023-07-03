@@ -40,6 +40,27 @@
         <item>medium</item>
         <item>hard</item>
     </string-array>
+
+    <string-array name="quiz_achievements">
+        <item>Rookie(Easy): Answer 2 questions in a row correctly.</item>
+        <item>Knowledge Seeker(Easy): Answer 5 questions in a row correctly.</item>
+        <item>Quiz Enthusiast(Easy): Answer 10 questions in a row correctly.</item>
+        <item>Sharp Mind(Easy): Answer 25 questions in a row correctly.</item>
+        <item>Quiz Master(Easy): Answer 50 questions in a row correctly.</item>
+
+        <item>Rookie(Medium): Answer 2 questions in a row correctly.</item>
+        <item>Knowledge Seeker(Medium): Answer 5 questions in a row correctly.</item>
+        <item>Quiz Enthusiast(Medium): Answer 10 questions in a row correctly.</item>
+        <item>Sharp Mind(Medium): Answer 25 questions in a row correctly.</item>
+        <item>Quiz Master(Medium): Answer 50 questions in a row correctly.</item>
+
+        <item>Rookie(Hard): Answer 2 questions in a row correctly.</item>
+        <item>Knowledge Seeker(Hard): Answer 5 questions in a row correctly.</item>
+        <item>Quiz Enthusiast(Hard): Answer 10 questions in a row correctly.</item>
+        <item>Sharp Mind(Hard): Answer 25 questions in a row correctly.</item>
+        <item>Quiz Master(Hard): Answer 50 questions in a row correctly.</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
