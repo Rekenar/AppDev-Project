@@ -77,7 +77,7 @@
 
     <fragment
         android:id="@+id/overviewFragment"
-        android:name="com.example.appdev_project.OverviewFragment"
+        android:name="com.example.appdev_project.Overview.OverviewFragment"
         android:label="fragment_overview"
         tools:layout="@layout/fragment_overview" >
 
