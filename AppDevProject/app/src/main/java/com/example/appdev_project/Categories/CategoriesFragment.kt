@@ -38,19 +38,18 @@ class CategoriesFragment : Fragment() {
         categoriesView = view.findViewById(R.id.categoriesView)
         categoriesView.layoutManager = LinearLayoutManager(this.context)
         db = ViewModelProvider(requireActivity()).get(DatabaseViewModel::class.java)
-
+        data = ArrayList()
 
         lifecycleScope.launch {
             val fetchedData = withContext(Dispatchers.IO){
                 ArrayList(db.getDB().categoryDao().getAll())
             }
             data = fetchedData
-            adapter = CategoriesAdapter(data)
-            categoriesView.adapter = adapter
+
         }
 
-
-
+        adapter = CategoriesAdapter(data)
+        categoriesView.adapter = adapter
         /**
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {

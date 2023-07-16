@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appdev_project.R
 import com.example.appdev_project.database.Category
@@ -22,8 +23,8 @@ class CategoriesAdapter(private val mList: List<Category>): RecyclerView.Adapter
 
         holder.textView.text = databaseViewModel.name
         holder.itemView.setOnClickListener{
-            //TODO call category with safeargs identifier
-            Navigation.createNavigateOnClickListener(R.id.overviewFragment).onClick(holder.itemView)
+            val action = CategoriesFragmentDirections.actionCategoriesFragmentToOverviewFragment(databaseViewModel.identifier)
+            holder.itemView.findNavController().navigate(action)
         }
 
     }
