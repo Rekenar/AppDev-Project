@@ -10,6 +10,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
+import com.example.appdev_project.Overview.OverviewFragmentArgs
 import com.example.appdev_project.database.DatabaseViewModel
 import com.example.appdev_project.database.Question
 import com.example.appdev_project.database.QuestionsDataClass
@@ -27,7 +29,7 @@ class GameFragment : Fragment() {
     private lateinit var questions: List<QuestionsDataClass>
     private var questionIndex:Int = 0
     private val db by viewModels<DatabaseViewModel>()
-
+    private val args: GameFragmentArgs by navArgs()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -48,6 +50,8 @@ class GameFragment : Fragment() {
             view.findViewById(R.id.btn_Ans4))
         pointsView = view.findViewById(R.id.txt_Points)
 
+        val id = args.identifier
+        println("identifier is: " + id)
 
         for (i in 0..3){
             buttons[i].setOnClickListener {

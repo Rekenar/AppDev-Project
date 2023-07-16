@@ -39,6 +39,9 @@ class CategoriesFragment : Fragment() {
         categoriesView.layoutManager = LinearLayoutManager(this.context)
         db = ViewModelProvider(requireActivity()).get(DatabaseViewModel::class.java)
         data = ArrayList()
+        data.add(Category(0,"test"))
+        data.add(Category(1,"test1"))
+
 
         lifecycleScope.launch {
             val fetchedData = withContext(Dispatchers.IO){
