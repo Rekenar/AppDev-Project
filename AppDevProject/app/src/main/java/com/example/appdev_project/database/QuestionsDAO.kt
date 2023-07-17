@@ -8,8 +8,8 @@ interface QuestionsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertQuestions(question: Question)
 
-    @Query("Select question from question where identifier = :identifier")
-    fun getQuestions(identifier:Int):List<String>
+    @Query("Select * from question where identifier = :identifier")
+    fun getQuestions(identifier:Int):List<Question>
 
     @Query("SELECT * FROM question")
     fun getAll(): List<Question>
