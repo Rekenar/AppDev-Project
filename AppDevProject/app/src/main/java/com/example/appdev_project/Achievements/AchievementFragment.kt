@@ -5,16 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.appdev_project.ItemsViewModel
 import com.example.appdev_project.R
+import com.example.appdev_project.database.Achievements
+import com.example.appdev_project.database.DatabaseCompanionObject
+import com.example.appdev_project.database.QuestionsDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class AchievementFragment : Fragment() {
-private lateinit var achievementsView: RecyclerView
-private lateinit var data : ArrayList<ItemsViewModel>
-private lateinit var adapter: AchievementsAdapter
+    private lateinit var achievementsView: RecyclerView
+    private lateinit var data : ArrayList<Achievements>
+    private lateinit var adapter: AchievementAdapter
+    private lateinit var db: QuestionsDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,13 +37,24 @@ private lateinit var adapter: AchievementsAdapter
 
         achievementsView = view.findViewById(R.id.achievementsView)
         achievementsView.layoutManager = LinearLayoutManager(this.context)
-        data = ArrayList()
-        for (i in 1..20) { //This need to be linked to the DB to get the right amount of elements/achievements
-            data.add(ItemsViewModel( "Item " + i))  //Here goes the achievement name
-        }
 
-        adapter = AchievementsAdapter(data)
-        achievementsView.adapter = adapter
+        data = ArrayList()
+
+        try {
+            db = DatabaseCompanionObject.buildDatabase(requireContext())
+            lifecycleScope.launch {
+                val fetchedData = withContext(Dispatchers.IO){
+                    ArrayList(db.achievementsDAO().getAllAchievements())
+                }
+                data = fetchedData
+                adapter = AchievementAdapter(data)
+                achievementsView.adapter = adapter
+            }
+        }catch (e : Exception){
+            e.printStackTrace()
+        }finally {
+            db.close()
+        }
     }
 
 

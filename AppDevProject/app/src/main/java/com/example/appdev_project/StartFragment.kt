@@ -12,7 +12,6 @@ import androidx.navigation.findNavController
 class StartFragment : Fragment() {
      lateinit var btn_start : Button
      lateinit var btn_achievements : ImageButton
-    lateinit var createButton:Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +28,6 @@ class StartFragment : Fragment() {
         btn_start = view.findViewById(R.id.btn_start)
         btn_start.setOnClickListener{ view.findNavController().navigate(R.id.categoriesFragment) }
 
-        createButton = view.findViewById(R.id.createButton)
-        createButton.setOnClickListener {
-            view.findNavController().navigate(R.id.createQuizFragment)
-        }
 
 
         btn_achievements = view.findViewById(R.id.btn_Achievements)

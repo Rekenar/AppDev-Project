@@ -20,9 +20,6 @@
         <action
             android:id="@+id/action_startFragment_to_categoriesFragment"
             app:destination="@id/categoriesFragment" />
-        <action
-            android:id="@+id/action_startFragment_to_createQuizFragment"
-            app:destination="@id/createQuizFragment" />
     </fragment>
 
     <fragment
@@ -48,9 +45,7 @@
         android:name="com.example.appdev_project.CreateQuizFragment"
         android:label="fragment_createquiz"
         tools:layout="@layout/fragment_createquiz">
-        <action
-            android:id="@+id/action_createQuizFragment_to_startFragment"
-            app:destination="@id/startFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/categoriesFragment"
@@ -63,15 +58,12 @@
             app:destination="@id/startFragment" />
 
         <action
-            android:id="@+id/action_categoriesFragment_to_startFragment2"
-            app:destination="@id/startFragment" />
+            android:id="@+id/action_categoriesFragment_to_createQuizFragment"
+            app:destination="@id/createQuizFragment" />
 
         <action
             android:id="@+id/action_categoriesFragment_to_overviewFragment"
             app:destination="@id/overviewFragment" >
-            <argument
-                android:name="categoryId"
-                app:argType="integer" />
         </action>
     </fragment>
 

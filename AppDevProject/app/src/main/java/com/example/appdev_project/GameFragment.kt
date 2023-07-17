@@ -10,9 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.appdev_project.database.DatabaseViewModel
-import com.example.appdev_project.database.Question
-import com.example.appdev_project.database.QuestionsDataClass
+import com.example.appdev_project.database.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -26,7 +24,8 @@ class GameFragment : Fragment() {
     var pointCounter : Int = 0
     private lateinit var questions: List<QuestionsDataClass>
     private var questionIndex:Int = 0
-    private val db by viewModels<DatabaseViewModel>()
+    private lateinit var db:QuestionsDatabase
+    private lateinit var achievements: List<Achievements>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,23 +54,78 @@ class GameFragment : Fragment() {
             }
         }
 
+        try {
+            db = DatabaseCompanionObject.buildDatabase(requireContext())
 
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                questions = convertQuestionsListToQuestionsDataClassList(db.getDB().questionsDao().getAll().shuffled())
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    questions = convertQuestionsListToQuestionsDataClassList(db.questionsDao().getAll().shuffled())
+                }
+                updateQuestion()
             }
-            updateQuestion()
+        }catch (e : Exception){
+            e.printStackTrace()
+        }finally {
+            db.close()
         }
+
+
     }
 
     private fun nextQuestion(number: Int) {
         if (questionIndex < questions.size) {
             if(questions[questionIndex].answers[number] == questions[questionIndex].correctAnswer){
                 Toast.makeText(context, "Correct", Toast.LENGTH_SHORT).show()
+                pointCounter++
+            }
+            else{
+                pointCounter = 0
             }
             questionIndex++
             updateQuestion()
+            checkForAchievement()
         }
+    }
+
+    fun checkForAchievement(){
+        try {
+            db = DatabaseCompanionObject.buildDatabase(requireContext())
+
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    achievements = db.achievementsDAO().getAllAchievements()
+
+                    // TODO: Getting difficulty from overview
+                    when(pointCounter){
+                        2 -> {
+                            achievements[0].finished=true
+                            db.achievementsDAO().updateAchievements(achievements = achievements[0])
+                        }
+                        5 -> {
+                            achievements[1].finished=true
+                            db.achievementsDAO().updateAchievements(achievements = achievements[1])
+                        }
+                        10 -> {
+                            achievements[2].finished=true
+                            db.achievementsDAO().updateAchievements(achievements = achievements[2])
+                        }
+                        25 -> {
+                            achievements[3].finished=true
+                            db.achievementsDAO().updateAchievements(achievements = achievements[3])
+                        }
+                        50 -> {
+                            achievements[4].finished=true
+                            db.achievementsDAO().updateAchievements(achievements = achievements[4])
+                        }
+                    }
+                }
+            }
+        }catch (e:Exception){
+
+        }finally {
+            db.close()
+        }
+
     }
 
 

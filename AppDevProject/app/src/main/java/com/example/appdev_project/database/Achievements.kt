@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 data class Achievements(
     @PrimaryKey(autoGenerate = true) val uid: Int = 0,
     val name:String,
-    val description:String
+    var finished:Boolean
 )

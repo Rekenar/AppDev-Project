@@ -8,6 +8,7 @@ data class Question(
     @PrimaryKey(autoGenerate = true) val uid: Int = 0,
     val identifier: Int,
     val category: String,
+    val difficulty:String,
     val question:String,
     val answer1:String,
     val answer2:String,
