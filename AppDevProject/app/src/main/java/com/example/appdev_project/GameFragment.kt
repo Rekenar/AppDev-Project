@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.appdev_project.database.*
+import androidx.navigation.fragment.navArgs
+import com.example.appdev_project.database.Question
+import com.example.appdev_project.database.QuestionsDataClass
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -24,8 +26,11 @@ class GameFragment : Fragment() {
     var pointCounter : Int = 0
     private lateinit var questions: List<QuestionsDataClass>
     private var questionIndex:Int = 0
+
     private lateinit var db:QuestionsDatabase
     private lateinit var achievements: List<Achievements>
+
+    private val args: GameFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +52,7 @@ class GameFragment : Fragment() {
             view.findViewById(R.id.btn_Ans4))
         pointsView = view.findViewById(R.id.txt_Points)
 
+        val id = args.identifier
 
         for (i in 0..3){
             buttons[i].setOnClickListener {
@@ -59,7 +65,7 @@ class GameFragment : Fragment() {
 
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
-                    questions = convertQuestionsListToQuestionsDataClassList(db.questionsDao().getAll().shuffled())
+                    questions = convertQuestionsListToQuestionsDataClassList(db.questionsDao().getQuestions(id).shuffled())
                 }
                 updateQuestion()
             }
@@ -68,8 +74,6 @@ class GameFragment : Fragment() {
         }finally {
             db.close()
         }
-
-
     }
 
     private fun nextQuestion(number: Int) {

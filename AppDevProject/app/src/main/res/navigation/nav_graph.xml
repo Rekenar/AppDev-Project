@@ -27,6 +27,10 @@
         android:name="com.example.appdev_project.GameFragment"
         android:label="fragment_game"
         tools:layout="@layout/fragment_game" >
+        <argument
+            android:name="Identifier"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 
     <fragment
@@ -64,6 +68,9 @@
         <action
             android:id="@+id/action_categoriesFragment_to_overviewFragment"
             app:destination="@id/overviewFragment" >
+            <argument
+                android:name="Identifier"
+                app:argType="integer" />
         </action>
     </fragment>
 
@@ -76,6 +83,17 @@
         <action
             android:id="@+id/action_overviewFragment_to_categoriesFragment"
             app:destination="@id/categoriesFragment" />
+        <argument
+            android:name="Identifier"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_overviewFragment_to_gameFragment"
+            app:destination="@id/gameFragment">
+        <argument
+            android:name="Identifier"
+            app:argType="integer" />
+        </action>
 
     </fragment>
 </navigation>

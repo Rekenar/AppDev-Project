@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,13 +12,28 @@
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:text="@string/category_title"
-        android:textSize="35sp" />
+        android:textSize="35sp"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/questionsView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:itemCount="5"
-        tools:listitem="@layout/card_view_design" />
+        tools:listitem="@layout/card_view_design"
+        android:layout_below="@id/textView2"/>
 
-</LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="end|bottom|center"
+        android:layout_marginEnd="178dp"
+        android:layout_marginBottom="22dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@android:drawable/ic_media_play" />
+
+</RelativeLayout>

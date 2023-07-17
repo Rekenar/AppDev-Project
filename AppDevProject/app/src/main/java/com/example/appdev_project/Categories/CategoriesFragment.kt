@@ -43,6 +43,9 @@ class CategoriesFragment : Fragment() {
         categoriesView = view.findViewById(R.id.categoriesView)
         categoriesView.layoutManager = LinearLayoutManager(this.context)
 
+        data = ArrayList()
+
+
 
         try {
             db = DatabaseCompanionObject.buildDatabase(requireContext())
@@ -62,6 +65,7 @@ class CategoriesFragment : Fragment() {
         }
 
 
+
         toolbar = view.findViewById(R.id.toolbar)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         addButtonToToolbar()
@@ -70,6 +74,7 @@ class CategoriesFragment : Fragment() {
         val button = ImageButton(requireContext())
 
         button.setImageResource(R.drawable.ic_button1)
+
 
         val params = Toolbar.LayoutParams(
             Toolbar.LayoutParams.WRAP_CONTENT,

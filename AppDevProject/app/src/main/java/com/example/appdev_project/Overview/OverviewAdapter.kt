@@ -20,10 +20,6 @@ class OverviewAdapter(private val mList: List<ItemsViewModel>): RecyclerView.Ada
         val ItemsViewModel = mList[position]
 
         holder.textView.text = ItemsViewModel.text
-        holder.itemView.setOnClickListener{
-            //TODO call category with safeargs
-            Navigation.createNavigateOnClickListener(R.id.gameFragment).onClick(holder.itemView)
-        }
 
     }
 
