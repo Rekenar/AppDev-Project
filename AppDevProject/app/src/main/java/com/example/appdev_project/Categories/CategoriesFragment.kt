@@ -39,8 +39,9 @@ class CategoriesFragment : Fragment() {
         categoriesView.layoutManager = LinearLayoutManager(this.context)
         db = ViewModelProvider(requireActivity()).get(DatabaseViewModel::class.java)
         data = ArrayList()
-        data.add(Category(0,"test"))
-        data.add(Category(1,"test1"))
+
+        //data.add(Category(0,"test"))
+        //data.add(Category(1,"test1"))
 
 
         lifecycleScope.launch {
@@ -48,11 +49,12 @@ class CategoriesFragment : Fragment() {
                 ArrayList(db.getDB().categoryDao().getAll())
             }
             data = fetchedData
-
+            adapter = CategoriesAdapter(data)
+            categoriesView.adapter = adapter
         }
 
-        adapter = CategoriesAdapter(data)
-        categoriesView.adapter = adapter
+        //adapter = CategoriesAdapter(data)
+        //categoriesView.adapter = adapter
         /**
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
