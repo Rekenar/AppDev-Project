@@ -1,25 +1,35 @@
 package com.example.appdev_project
-
+import android.content.Context
+import android.content.Context.SENSOR_SERVICE
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.getSystemService
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.example.appdev_project.database.*
 import androidx.navigation.fragment.navArgs
-import com.example.appdev_project.database.Question
-import com.example.appdev_project.database.QuestionsDataClass
+import com.example.appdev_project.database.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.Math.sqrt
+import java.util.*
 
 
 class GameFragment : Fragment() {
-
+    lateinit var sensorManager : SensorManager
+    private var accel : Float = 0f
+    private var accelCurrent : Float = 0f
+    private var accelLast : Float = 0f
     lateinit var questionText: TextView
     lateinit var buttons :Array<Button>
     lateinit var pointsView : TextView
@@ -34,6 +44,15 @@ class GameFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sensorManager = this.context?.getSystemService(SENSOR_SERVICE) as SensorManager
+
+        Objects.requireNonNull(sensorManager).registerListener(sensorListener, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+            SensorManager.SENSOR_DELAY_NORMAL)
+
+        accel = 10f
+        accelCurrent = SensorManager.GRAVITY_EARTH
+        accelLast = SensorManager.GRAVITY_EARTH
+
     }
 
 
@@ -75,7 +94,39 @@ class GameFragment : Fragment() {
             db.close()
         }
     }
+    private val sensorListener: SensorEventListener = object : SensorEventListener{
+        override fun onSensorChanged(event: SensorEvent?) {
+            // Fetching x,y,z values
+            val x = event?.values!![0]
+            val y = event.values[1]
+            val z = event.values[2]
+            accelLast = accelCurrent
 
+            // Getting current accelerations
+            // with the help of fetched x,y,z values
+            accelCurrent = kotlin.math.sqrt((x * x + y * y + z * z).toDouble()).toFloat()
+            val delta: Float = accelCurrent - accelLast
+            accel = accel * 0.9f + delta
+
+            // Display a Toast message if
+            // acceleration value is over 12
+            if (accel > 12) {
+                Toast.makeText(context,"Shake detected", Toast.LENGTH_LONG).show()
+            }
+        }
+        override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
+    }
+
+    override fun onResume() {
+        sensorManager.registerListener(sensorListener, sensorManager.getDefaultSensor(
+            Sensor .TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL
+        )
+        super.onResume()
+    }
+    override fun onPause() {
+        sensorManager.unregisterListener(sensorListener)
+        super.onPause()
+    }
     private fun nextQuestion(number: Int) {
         if (questionIndex < questions.size) {
             if(questions[questionIndex].answers[number] == questions[questionIndex].correctAnswer){
