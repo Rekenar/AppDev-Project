@@ -1,5 +1,5 @@
 package com.example.appdev_project
-import android.content.Context
+
 import android.content.Context.SENSOR_SERVICE
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -12,18 +12,18 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.getSystemService
+
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.appdev_project.database.*
 import androidx.navigation.fragment.navArgs
-import com.example.appdev_project.database.*
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.Math.sqrt
+
 import java.util.*
 
 
@@ -114,8 +114,9 @@ class GameFragment : Fragment() {
 
             // Display a Toast message if
             // acceleration value is over 12
-            if (accel > 12) {
-                Toast.makeText(context,"Shake detected", Toast.LENGTH_LONG).show()
+            if (accel > 10) {
+                Toast.makeText(context,"Shake detected", Toast.LENGTH_SHORT).show()
+                nextQuestion(-1)
             }
         }
         override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
@@ -132,17 +133,15 @@ class GameFragment : Fragment() {
         super.onPause()
     }
     private fun nextQuestion(number: Int) {
-        /**if(number == -1){
+        if(number == -1 && questionIndex < questions.size){
             pointCounter++
             questionIndex++
             updateQuestion()
             checkForAchievement()
-        }**/
-        if(questions.lastIndex == questionIndex){
+        }else if(questions.lastIndex <= questionIndex){
             val action = GameFragmentDirections.actionGameFragmentToOverviewFragment(args.identifier)
             this.findNavController().navigate(action)
-        }
-        if (questionIndex < questions.size) {
+        }else if(questionIndex < questions.size) {
             if(questions[questionIndex].answers[number] == questions[questionIndex].correctAnswer){
                 Toast.makeText(context, "Correct", Toast.LENGTH_SHORT).show()
                 pointCounter++
@@ -179,7 +178,6 @@ class GameFragment : Fragment() {
                     targetAchievement.finished = true
                     db.achievementsDAO().updateAchievements(targetAchievement)
                 }
-                db.close()
             }
         } catch (e: Exception) {
 
