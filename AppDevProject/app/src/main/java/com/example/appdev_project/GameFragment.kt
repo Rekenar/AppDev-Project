@@ -80,6 +80,12 @@ class GameFragment : Fragment() {
     }
 
     private fun nextQuestion(number: Int) {
+        /**if(number == -1){
+            pointCounter++
+            questionIndex++
+            updateQuestion()
+            checkForAchievement()
+        }**/
         if(questions.lastIndex == questionIndex){
             val action = GameFragmentDirections.actionGameFragmentToOverviewFragment(args.identifier)
             this.findNavController().navigate(action)
@@ -98,7 +104,7 @@ class GameFragment : Fragment() {
         }
     }
 
-    fun checkForAchievement() {
+    private fun checkForAchievement() {
         try {
             val db = DatabaseCompanionObject.buildDatabase(requireContext())
 
