@@ -5,6 +5,7 @@ data class QuestionsDataClass(
     val uid: Int,
     val identifier: Int,
     val category: String,
+    val difficulty:String,
     val question:String,
     val answers:List<String>,
     val correctAnswer:String

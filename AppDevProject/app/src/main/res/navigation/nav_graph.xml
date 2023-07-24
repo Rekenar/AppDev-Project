@@ -31,6 +31,13 @@
             android:name="Identifier"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_gameFragment_to_overviewFragment"
+            app:destination="@id/overviewFragment">
+            <argument
+                android:name="Identifier"
+                app:argType="integer" />
+        </action>
     </fragment>
 
     <fragment

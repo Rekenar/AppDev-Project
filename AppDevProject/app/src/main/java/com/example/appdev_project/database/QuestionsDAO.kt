@@ -11,6 +11,9 @@ interface QuestionsDao {
     @Query("Select * from question where identifier = :identifier")
     fun getQuestions(identifier:Int):List<Question>
 
+    @Query("Select difficulty from question where identifier = :identifier")
+    fun getDifficulty(identifier:Int):String
+
     @Query("SELECT * FROM question")
     fun getAll(): List<Question>
 

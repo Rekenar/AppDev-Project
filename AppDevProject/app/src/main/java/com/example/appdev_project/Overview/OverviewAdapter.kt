@@ -8,8 +8,9 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appdev_project.ItemsViewModel
 import com.example.appdev_project.R
+import com.example.appdev_project.database.Question
 
-class OverviewAdapter(private val mList: List<ItemsViewModel>): RecyclerView.Adapter<OverviewAdapter.ViewHolder>() {
+class OverviewAdapter(private val mList: List<Question>): RecyclerView.Adapter<OverviewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_view_design,parent,false)
@@ -17,9 +18,9 @@ class OverviewAdapter(private val mList: List<ItemsViewModel>): RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val ItemsViewModel = mList[position]
+        val questions = mList[position]
 
-        holder.textView.text = ItemsViewModel.text
+        holder.textView.text = questions.question
 
     }
 

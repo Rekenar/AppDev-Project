@@ -8,12 +8,11 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/overViewHeader"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="wrap_content"
         android:text="@string/category_title"
-        android:textSize="35sp"
-        />
+        android:textSize="35sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/questionsView"
@@ -21,7 +20,7 @@
         android:layout_height="match_parent"
         tools:itemCount="5"
         tools:listitem="@layout/card_view_design"
-        android:layout_below="@id/textView2"/>
+        android:layout_below="@id/overViewHeader"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_play"
@@ -30,7 +29,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="end|bottom|center"
-        android:layout_marginEnd="178dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="22dp"
         android:clickable="true"
         android:focusable="true"

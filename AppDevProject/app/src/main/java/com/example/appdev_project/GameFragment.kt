@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.appdev_project.database.*
 import androidx.navigation.fragment.navArgs
 import com.example.appdev_project.database.Question
@@ -26,9 +27,9 @@ class GameFragment : Fragment() {
     var pointCounter : Int = 0
     private lateinit var questions: List<QuestionsDataClass>
     private var questionIndex:Int = 0
+    lateinit var difficulty:String
 
     private lateinit var db:QuestionsDatabase
-    private lateinit var achievements: List<Achievements>
 
     private val args: GameFragmentArgs by navArgs()
 
@@ -66,6 +67,7 @@ class GameFragment : Fragment() {
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
                     questions = convertQuestionsListToQuestionsDataClassList(db.questionsDao().getQuestions(id).shuffled())
+                    difficulty = questions[0].difficulty
                 }
                 updateQuestion()
             }
@@ -74,9 +76,14 @@ class GameFragment : Fragment() {
         }finally {
             db.close()
         }
+
     }
 
     private fun nextQuestion(number: Int) {
+        if(questions.lastIndex == questionIndex){
+            val action = GameFragmentDirections.actionGameFragmentToOverviewFragment(args.identifier)
+            this.findNavController().navigate(action)
+        }
         if (questionIndex < questions.size) {
             if(questions[questionIndex].answers[number] == questions[questionIndex].correctAnswer){
                 Toast.makeText(context, "Correct", Toast.LENGTH_SHORT).show()
@@ -91,46 +98,39 @@ class GameFragment : Fragment() {
         }
     }
 
-    fun checkForAchievement(){
+    fun checkForAchievement() {
         try {
-            db = DatabaseCompanionObject.buildDatabase(requireContext())
+            val db = DatabaseCompanionObject.buildDatabase(requireContext())
 
-            lifecycleScope.launch {
-                withContext(Dispatchers.IO) {
-                    achievements = db.achievementsDAO().getAllAchievements()
+            lifecycleScope.launch(Dispatchers.IO) {
+                val achievements = db.achievementsDAO().getAllAchievements()
 
-                    // TODO: Getting difficulty from overview
-                    when(pointCounter){
-                        2 -> {
-                            achievements[0].finished=true
-                            db.achievementsDAO().updateAchievements(achievements = achievements[0])
-                        }
-                        5 -> {
-                            achievements[1].finished=true
-                            db.achievementsDAO().updateAchievements(achievements = achievements[1])
-                        }
-                        10 -> {
-                            achievements[2].finished=true
-                            db.achievementsDAO().updateAchievements(achievements = achievements[2])
-                        }
-                        25 -> {
-                            achievements[3].finished=true
-                            db.achievementsDAO().updateAchievements(achievements = achievements[3])
-                        }
-                        50 -> {
-                            achievements[4].finished=true
-                            db.achievementsDAO().updateAchievements(achievements = achievements[4])
-                        }
-                    }
+                val difficultyIndex = when (difficulty) {
+                    "easy" -> 0
+                    "medium" -> 1
+                    "hard" -> 2
+                    else -> 0
                 }
-            }
-        }catch (e:Exception){
 
-        }finally {
+                val pointThresholds = listOf(2, 5, 10, 25, 50)
+                val achievementIndex = difficultyIndex * pointThresholds.size
+
+                val currentThreshold = pointThresholds.indexOf(pointCounter)
+                if (currentThreshold != -1) {
+                    val targetAchievement = achievements[achievementIndex + currentThreshold]
+                    targetAchievement.finished = true
+                    db.achievementsDAO().updateAchievements(targetAchievement)
+                }
+                db.close()
+            }
+        } catch (e: Exception) {
+
+        }
+        finally {
             db.close()
         }
-
     }
+
 
 
     private fun updateQuestion(){
@@ -162,6 +162,7 @@ class GameFragment : Fragment() {
                 uid = questions.uid,
                 identifier = questions.identifier,
                 category = questions.category,
+                difficulty = questions.difficulty,
                 question = questions.question,
                 answers = answers.shuffled(),
                 correctAnswer = questions.correctAnswer
