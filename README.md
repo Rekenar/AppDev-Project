@@ -32,12 +32,12 @@ In der Mitte rechts des Bildschirms wird die Anzahl der verbleibenden Skips ange
 
 
 
-<img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/start.png" align="right"  width="200" height="400"/>
+<img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/start.png" align="right"  width="175" height="400"/>
 
-<img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/Liste.png" align="right"  width="200" height="400"/>
+<img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/Liste.png" align="right"  width="175" height="400"/>
 
-<img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/Overview.png" align="right"  width="200" height="400"/>
+<img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/Overview.png" align="right"  width="175" height="400"/>
 
-<img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/Game.png" align="right"  width="200" height="400"/>
+<img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/Game.png" align="right"  width="175" height="400"/>
 
-<img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/Achievement.png" align="right"  width="200" height="400"/>
+<img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/Achievement.png" align="right"  width="175" height="400"/>
