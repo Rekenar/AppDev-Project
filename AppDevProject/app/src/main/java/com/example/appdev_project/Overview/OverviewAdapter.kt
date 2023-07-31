@@ -4,9 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import com.example.appdev_project.ItemsViewModel
 import com.example.appdev_project.R
 import com.example.appdev_project.database.Question
 

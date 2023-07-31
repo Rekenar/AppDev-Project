@@ -7,53 +7,45 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.appdev_project.R
-import com.example.appdev_project.database.Achievements
 import com.example.appdev_project.database.DatabaseCompanionObject
 import com.example.appdev_project.database.QuestionsDatabase
+import com.example.appdev_project.databinding.FragmentAchievementBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
 class AchievementFragment : Fragment() {
-    private lateinit var achievementsView: RecyclerView
-    private lateinit var data : ArrayList<Achievements>
+    private lateinit var binding: FragmentAchievementBinding
     private lateinit var adapter: AchievementAdapter
     private lateinit var db: QuestionsDatabase
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_achievement, container, false)
+        // Inflate the layout for this fragment
+        binding = FragmentAchievementBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.achievementsView.layoutManager = LinearLayoutManager(this.context)
 
-        achievementsView = view.findViewById(R.id.achievementsView)
-        achievementsView.layoutManager = LinearLayoutManager(this.context)
+        lifecycleScope.launch {
+            try {
+                db = DatabaseCompanionObject.buildDatabase(requireContext())
 
-        data = ArrayList()
-
-        try {
-            db = DatabaseCompanionObject.buildDatabase(requireContext())
-            lifecycleScope.launch {
-                val fetchedData = withContext(Dispatchers.IO){
+                val fetchedData = withContext(Dispatchers.IO) {
                     ArrayList(db.achievementsDAO().getAllAchievements())
                 }
-                data = fetchedData
-                adapter = AchievementAdapter(data)
-                achievementsView.adapter = adapter
+                adapter = AchievementAdapter(fetchedData)
+                binding.achievementsView.adapter = adapter
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                if (::db.isInitialized && db.isOpen) {
+                    db.close()
+                }
             }
-        }catch (e : Exception){
-            e.printStackTrace()
-        }finally {
-            db.close()
         }
     }
 

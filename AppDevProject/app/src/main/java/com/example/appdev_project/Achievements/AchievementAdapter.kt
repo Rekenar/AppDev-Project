@@ -6,10 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.appdev_project.ItemsViewModel
 import com.example.appdev_project.R
 import com.example.appdev_project.database.Achievements
-import com.example.appdev_project.database.Category
 
 class AchievementAdapter(private val mList: List<Achievements>): RecyclerView.Adapter<AchievementAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

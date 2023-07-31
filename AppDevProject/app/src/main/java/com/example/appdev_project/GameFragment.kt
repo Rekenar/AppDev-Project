@@ -40,7 +40,6 @@ class GameFragment : Fragment() {
     lateinit var difficulty:String
 
     private lateinit var db:QuestionsDatabase
-    private var isRunning = false
 
     private val args: GameFragmentArgs by navArgs()
     private var id:Int = 0
@@ -161,34 +160,36 @@ class GameFragment : Fragment() {
     }
 
     private fun checkForAchievement() {
-        try {
-            val db = DatabaseCompanionObject.buildDatabase(requireContext())
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val db = DatabaseCompanionObject.buildDatabase(requireContext())
 
-            lifecycleScope.launch(Dispatchers.IO) {
-                val achievements = db.achievementsDAO().getAllAchievements()
 
-                val difficultyIndex = when (difficulty) {
-                    "easy" -> 0
-                    "medium" -> 1
-                    "hard" -> 2
-                    else -> 0
-                }
+                    val achievements = db.achievementsDAO().getAllAchievements()
 
-                val pointThresholds = listOf(2, 5, 10, 25, 50)
-                val achievementIndex = difficultyIndex * pointThresholds.size
+                    val difficultyIndex = when (difficulty) {
+                        "easy" -> 0
+                        "medium" -> 1
+                        "hard" -> 2
+                        else -> 0
+                    }
 
-                val currentThreshold = pointThresholds.indexOf(pointCounter)
-                if (currentThreshold != -1) {
-                    val targetAchievement = achievements[achievementIndex + currentThreshold]
-                    targetAchievement.finished = true
-                    db.achievementsDAO().updateAchievements(targetAchievement)
+                    val pointThresholds = listOf(2, 5, 10, 25, 50)
+                    val achievementIndex = difficultyIndex * pointThresholds.size
+
+                    val currentThreshold = pointThresholds.indexOf(pointCounter)
+                    if (currentThreshold != -1) {
+                        val targetAchievement = achievements[achievementIndex + currentThreshold]
+                        targetAchievement.finished = true
+                        db.achievementsDAO().updateAchievements(targetAchievement)
+                    }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                if (::db.isInitialized && db.isOpen) {
+                    db.close()
                 }
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        finally {
-            db.close()
         }
     }
 

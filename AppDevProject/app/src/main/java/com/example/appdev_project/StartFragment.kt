@@ -8,29 +8,23 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.navigation.findNavController
+import com.example.appdev_project.databinding.FragmentCreatequizBinding
+import com.example.appdev_project.databinding.FragmentStartBinding
 
 class StartFragment : Fragment() {
-     lateinit var btn_start : Button
-     lateinit var btn_achievements : ImageButton
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private lateinit var binding: FragmentStartBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_start, container, false)
+        binding = FragmentStartBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btn_start = view.findViewById(R.id.btn_start)
-        btn_start.setOnClickListener{ view.findNavController().navigate(R.id.categoriesFragment) }
+        binding.btnStart.setOnClickListener{ view.findNavController().navigate(R.id.categoriesFragment) }
 
-
-
-        btn_achievements = view.findViewById(R.id.btn_Achievements)
-        btn_achievements.setOnClickListener { view.findNavController().navigate(R.id.achievementFragment) }
+        binding.btnAchievements.setOnClickListener { view.findNavController().navigate(R.id.achievementFragment) }
     }
 }
