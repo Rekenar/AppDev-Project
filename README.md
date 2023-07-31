@@ -1,5 +1,8 @@
 # Kahoot Klon
 
+<img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/start.png" align="right"  width="150" height="250"/>
+
+<img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/Liste.png" align="right"  width="150" height="250"/>
 
 Um den Kahoot-Klon zu nutzen und ein Quiz zu erstellen, folge diesen Schritten:
 
@@ -22,7 +25,7 @@ Um den Kahoot-Klon zu nutzen und ein Quiz zu erstellen, folge diesen Schritten:
 1. Jetzt kannst du in der Liste das Quiz auswählen.
 
 ---
-<img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/Overview.png" align="right"  width="150" height="250"/>
+<img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/Overview.png" align="left"  width="150" height="250"/>
 
 Sobald du ein Quiz ausgewählt hast, gelangst du zu einer praktischen Übersicht, auf der du alle Fragen des Quiz im Voraus anzeigen kannst. Dies gibt dir die Möglichkeit, einen schnellen Überblick über den Inhalt und die Reihenfolge der Fragen zu bekommen.
 
