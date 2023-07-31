@@ -15,7 +15,6 @@ import android.widget.Toast
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.appdev_project.database.*
 import androidx.navigation.fragment.navArgs
@@ -32,9 +31,10 @@ class GameFragment : Fragment() {
     private var accel : Float = 0f
     private var accelCurrent : Float = 0f
     private var accelLast : Float = 0f
-    lateinit var questionText: TextView
+    private lateinit var questionText: TextView
+    lateinit var correctAnswers: TextView
+    lateinit var amountOfAnswers: TextView
     lateinit var buttons :Array<Button>
-    lateinit var pointsView : TextView
     var pointCounter : Int = 0
     private lateinit var questions: List<QuestionsDataClass>
     private var questionIndex:Int = 0
@@ -67,11 +67,12 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         questionText = view.findViewById(R.id.txt_Question)
+        correctAnswers = view.findViewById(R.id.txt_correctAnswers)
+        amountOfAnswers = view.findViewById(R.id.txt_amountOfAnswers)
         buttons = arrayOf(view.findViewById(R.id.btn_Ans1),
             view.findViewById(R.id.btn_Ans2),
             view.findViewById(R.id.btn_Ans3),
             view.findViewById(R.id.btn_Ans4))
-        pointsView = view.findViewById(R.id.txt_Points)
 
         val id = args.identifier
 
@@ -90,6 +91,7 @@ class GameFragment : Fragment() {
                     difficulty = questions[0].difficulty
                 }
                 updateQuestion()
+                refreshAnswerCounter()
             }
         }catch (e : Exception){
             e.printStackTrace()
@@ -133,16 +135,12 @@ class GameFragment : Fragment() {
         super.onPause()
     }
     private fun nextQuestion(number: Int) {
-        if(number == -1 && questionIndex < questions.size){
-            pointCounter++
-            questionIndex++
-            updateQuestion()
-            checkForAchievement()
-        }else if(questions.lastIndex <= questionIndex){
+        if(questions.lastIndex <= questionIndex){
             val action = GameFragmentDirections.actionGameFragmentToOverviewFragment(args.identifier)
             this.findNavController().navigate(action)
-        }else if(questionIndex < questions.size) {
-            if(questions[questionIndex].answers[number] == questions[questionIndex].correctAnswer){
+        }
+        if(questionIndex < questions.size || number == -1 ) {
+            if(number == -1 || questions[questionIndex].answers[number] == questions[questionIndex].correctAnswer){
                 Toast.makeText(context, "Correct", Toast.LENGTH_SHORT).show()
                 pointCounter++
             }
@@ -150,9 +148,11 @@ class GameFragment : Fragment() {
                 pointCounter = 0
             }
             questionIndex++
-            updateQuestion()
-            checkForAchievement()
         }
+        refreshPointCounter()
+        refreshAnswerCounter()
+        updateQuestion()
+        checkForAchievement()
     }
 
     private fun checkForAchievement() {
@@ -198,9 +198,14 @@ class GameFragment : Fragment() {
             buttons[3].text = questions[questionIndex].answers[3]
         }
     }
-    fun addPoint(){
-        pointCounter++
-        pointsView.text = pointCounter.toString()
+
+
+
+    private fun refreshPointCounter(){
+        correctAnswers.text = pointCounter.toString()
+    }
+    private fun refreshAnswerCounter(){
+        amountOfAnswers.text = "${questionIndex+1} / ${questions.size}"
     }
 
 
