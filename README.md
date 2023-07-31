@@ -30,10 +30,14 @@ Wenn du bereit bist, das Quiz zu starten, klicke einfach auf den Floating-Button
   <img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/Game.png" alt="Game Image" width="200"/>
 </p>
 
-Während des Spielens wird dir oben rechts auf dem Bildschirm angezeigt, bei welcher Frage du dich gerade befindest. Das ermöglicht, den Fortschritt im Quiz im Blick zu behalten.
+<div align="center">
+    Während des Spielens wird dir oben rechts auf dem Bildschirm angezeigt, bei welcher Frage du dich gerade befindest. Das ermöglicht, den Fortschritt im Quiz im Blick zu behalten.
 
-In der oberen linken Ecke findest du einen Zähler, der mitzählt, wie viele Fragen du in Folge richtig beantwortet hast. 
+    In der oberen linken Ecke findest du einen Zähler, der mitzählt, wie viele Fragen du in Folge richtig beantwortet hast. 
 
-In der Mitte rechts des Bildschirms wird die Anzahl der verbleibenden Skips angezeigt. Skips ermöglichen es dir, eine Frage zu überspringen, falls du sie nicht beantworten möchtest oder dir unsicher bist.
+    In der Mitte rechts des Bildschirms wird die Anzahl der verbleibenden Skips angezeigt. Skips ermöglichen es dir, eine Frage zu überspringen, falls du sie nicht beantworten möchtest oder dir unsicher bist.
+</div>
+
+
 
 
