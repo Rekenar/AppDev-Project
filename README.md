@@ -7,7 +7,7 @@ Um den Kahoot-Klon zu nutzen und ein Quiz zu erstellen, folge diesen Schritten:
 
 1. Klicke auf die Schaltfläche "Start".
 
-1. In der oberen rechten Ecke findest du ein Pluszeichen (+), klicke darauf, um das Menü zur Erstellung eines Quizzes zu öffnen.
+1. In der oberen rechten Ecke findest du ein Pluszeichen (+), klicke darauf, um das Menü zur Erstellung eines Quizzes zu öffnen. Die Fragen kommen von "https://opentdb.com".
 
 1. Im Menü zur Quiz-Erstellung gib einen Namen für dein Quiz ein.
 
@@ -26,17 +26,17 @@ Sobald du ein Quiz ausgewählt hast, gelangst du zu einer praktischen Übersicht
 
 Wenn du bereit bist, das Quiz zu starten, klicke einfach auf den Floating-Button unten rechts auf dem Bildschirm. Sobald du diesen Button gedrückt hast, beginnt das Spiel und die Teilnehmer können ihre Antworten auf die Fragen abgeben.
 
-<p align="center">
-  <img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/Game.png" alt="Game Image" width="200"/>
-</p>
 
-<div align="center">
-    Während des Spielens wird dir oben rechts auf dem Bildschirm angezeigt, bei welcher Frage du dich gerade befindest. Das ermöglicht, den Fortschritt im Quiz im Blick zu behalten.
+<img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/Game.png" align="left"  width="200"/>
 
-    In der oberen linken Ecke findest du einen Zähler, der mitzählt, wie viele Fragen du in Folge richtig beantwortet hast. 
+<br clear="left"/>
 
-    In der Mitte rechts des Bildschirms wird die Anzahl der verbleibenden Skips angezeigt. Skips ermöglichen es dir, eine Frage zu überspringen, falls du sie nicht beantworten möchtest oder dir unsicher bist.
-</div>
+
+Während des Spielens wird dir oben rechts auf dem Bildschirm angezeigt, bei welcher Frage du dich gerade befindest. Das ermöglicht, den Fortschritt im Quiz im Blick zu behalten.
+
+In der oberen linken Ecke findest du einen Zähler, der mitzählt, wie viele Fragen du in Folge richtig beantwortet hast. 
+
+In der Mitte rechts des Bildschirms wird die Anzahl der verbleibenden Skips angezeigt. Skips ermöglichen es dir, eine Frage zu überspringen, falls du sie nicht beantworten möchtest oder dir unsicher bist.
 
 
 
