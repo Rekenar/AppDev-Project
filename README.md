@@ -21,6 +21,8 @@ Um den Kahoot-Klon zu nutzen und ein Quiz zu erstellen, folge diesen Schritten:
 
 1. Jetzt kannst du in der Liste das Quiz auswählen.
 
+---
+<img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/Overview.png" align="right"  width="150" height="250"/>
 
 Sobald du ein Quiz ausgewählt hast, gelangst du zu einer praktischen Übersicht, auf der du alle Fragen des Quiz im Voraus anzeigen kannst. Dies gibt dir die Möglichkeit, einen schnellen Überblick über den Inhalt und die Reihenfolge der Fragen zu bekommen.
 
@@ -28,7 +30,7 @@ Wenn du bereit bist, das Quiz zu starten, klicke einfach auf den Floating-Button
 
 ---
 
-<img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/Game.png" align="right"  width="100" height="150"/>
+<img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/Game.png" align="right"  width="150" height="250"/>
 
 Während des Spielens wird dir oben rechts auf dem Bildschirm angezeigt, bei welcher Frage du dich gerade befindest. Das ermöglicht, den Fortschritt im Quiz im Blick zu behalten.
 
