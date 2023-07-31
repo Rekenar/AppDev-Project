@@ -26,7 +26,9 @@ Sobald du ein Quiz ausgewählt hast, gelangst du zu einer praktischen Übersicht
 
 Wenn du bereit bist, das Quiz zu starten, klicke einfach auf den Floating-Button unten rechts auf dem Bildschirm. Sobald du diesen Button gedrückt hast, beginnt das Spiel und die Teilnehmer können ihre Antworten auf die Fragen abgeben.
 
-![Game Image](https://github.com/Rekenar/AppDev-Project/blob/main/Img/Game.png)
+<p align="center">
+  <img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/Game.png" alt="Game Image" width="200"/>
+</p>
 
 Während des Spielens wird dir oben rechts auf dem Bildschirm angezeigt, bei welcher Frage du dich gerade befindest. Das ermöglicht, den Fortschritt im Quiz im Blick zu behalten.
 
