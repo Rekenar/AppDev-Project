@@ -48,7 +48,6 @@ class OverviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val identifier = args.identifier
-        println("id is: " + identifier)
 
         var header = view.findViewById<TextView>(R.id.overViewHeader)
         questionsView = view.findViewById(R.id.questionsView)

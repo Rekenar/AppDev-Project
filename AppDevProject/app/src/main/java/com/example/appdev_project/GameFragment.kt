@@ -9,15 +9,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.appdev_project.database.*
 import androidx.navigation.fragment.navArgs
+import com.example.appdev_project.databinding.FragmentGameBinding
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,18 +32,18 @@ class GameFragment : Fragment() {
     private var accel : Float = 0f
     private var accelCurrent : Float = 0f
     private var accelLast : Float = 0f
-    private lateinit var questionText: TextView
-    lateinit var correctAnswers: TextView
-    lateinit var amountOfAnswers: TextView
-    lateinit var buttons :Array<Button>
+
+    private lateinit var binding: FragmentGameBinding
     var pointCounter : Int = 0
     private lateinit var questions: List<QuestionsDataClass>
     private var questionIndex:Int = 0
     lateinit var difficulty:String
 
     private lateinit var db:QuestionsDatabase
+    private var isRunning = false
 
     private val args: GameFragmentArgs by navArgs()
+    private var id:Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,52 +55,56 @@ class GameFragment : Fragment() {
         accel = 10f
         accelCurrent = SensorManager.GRAVITY_EARTH
         accelLast = SensorManager.GRAVITY_EARTH
-
     }
 
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_game, container, false)
+        binding = FragmentGameBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        questionText = view.findViewById(R.id.txt_Question)
-        correctAnswers = view.findViewById(R.id.txt_correctAnswers)
-        amountOfAnswers = view.findViewById(R.id.txt_amountOfAnswers)
-        buttons = arrayOf(view.findViewById(R.id.btn_Ans1),
-            view.findViewById(R.id.btn_Ans2),
-            view.findViewById(R.id.btn_Ans3),
-            view.findViewById(R.id.btn_Ans4))
+        id = args.identifier
 
-        val id = args.identifier
-
-        for (i in 0..3){
-            buttons[i].setOnClickListener {
-                nextQuestion(i)
-            }
-        }
-
-        try {
-            db = DatabaseCompanionObject.buildDatabase(requireContext())
-
-            lifecycleScope.launch {
-                withContext(Dispatchers.IO) {
-                    questions = convertQuestionsListToQuestionsDataClassList(db.questionsDao().getQuestions(id).shuffled())
-                    difficulty = questions[0].difficulty
-                }
-                updateQuestion()
-                refreshAnswerCounter()
-            }
-        }catch (e : Exception){
-            e.printStackTrace()
-        }finally {
-            db.close()
-        }
-
+        setupUI()
+        fetchQuestions()
     }
+
+    private fun setupUI() {
+        binding.apply {
+            btnAns1.setOnClickListener { nextQuestion(0) }
+            btnAns2.setOnClickListener { nextQuestion(1) }
+            btnAns3.setOnClickListener { nextQuestion(2) }
+            btnAns4.setOnClickListener { nextQuestion(3) }
+        }
+    }
+
+    private fun fetchQuestions() {
+        lifecycleScope.launch {
+            try {
+                db = DatabaseCompanionObject.buildDatabase(requireContext())
+                repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    withContext(Dispatchers.IO) {
+                        val questionList = db.questionsDao().getQuestions(id).shuffled()
+                        questions = convertQuestionsListToQuestionsDataClassList(questionList)
+                        difficulty = questions[0].difficulty
+                    }
+                    updateQuestion()
+                    refreshAnswerCounter()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                if (::db.isInitialized && db.isOpen) {
+                    db.close()
+                }
+            }
+        }
+    }
+
     private val sensorListener: SensorEventListener = object : SensorEventListener{
         override fun onSensorChanged(event: SensorEvent?) {
             // Fetching x,y,z values
@@ -139,7 +144,7 @@ class GameFragment : Fragment() {
             val action = GameFragmentDirections.actionGameFragmentToOverviewFragment(args.identifier)
             this.findNavController().navigate(action)
         }
-        if(questionIndex < questions.size || number == -1 ) {
+        else if(questionIndex < questions.size || number == -1 ) {
             if(number == -1 || questions[questionIndex].answers[number] == questions[questionIndex].correctAnswer){
                 Toast.makeText(context, "Correct", Toast.LENGTH_SHORT).show()
                 pointCounter++
@@ -148,11 +153,11 @@ class GameFragment : Fragment() {
                 pointCounter = 0
             }
             questionIndex++
+            refreshPointCounter()
+            refreshAnswerCounter()
+            updateQuestion()
+            checkForAchievement()
         }
-        refreshPointCounter()
-        refreshAnswerCounter()
-        updateQuestion()
-        checkForAchievement()
     }
 
     private fun checkForAchievement() {
@@ -180,7 +185,7 @@ class GameFragment : Fragment() {
                 }
             }
         } catch (e: Exception) {
-
+            e.printStackTrace()
         }
         finally {
             db.close()
@@ -190,22 +195,24 @@ class GameFragment : Fragment() {
 
 
     private fun updateQuestion(){
-        if(questionIndex < questions.size && questions.isNotEmpty()){
-            questionText.text = questions[questionIndex].question
-            buttons[0].text = questions[questionIndex].answers[0]
-            buttons[1].text = questions[questionIndex].answers[1]
-            buttons[2].text = questions[questionIndex].answers[2]
-            buttons[3].text = questions[questionIndex].answers[3]
+        if (questionIndex < questions.size && questions.isNotEmpty()) {
+            binding.apply {
+                txtQuestion.text = questions[questionIndex].question
+                btnAns1.text = questions[questionIndex].answers[0]
+                btnAns2.text = questions[questionIndex].answers[1]
+                btnAns3.text = questions[questionIndex].answers[2]
+                btnAns4.text = questions[questionIndex].answers[3]
+            }
         }
     }
 
 
 
     private fun refreshPointCounter(){
-        correctAnswers.text = pointCounter.toString()
+        binding.txtCorrectAnswers.text = pointCounter.toString()
     }
     private fun refreshAnswerCounter(){
-        amountOfAnswers.text = "${questionIndex+1} / ${questions.size}"
+        binding.txtAmountOfAnswers.text = "${questionIndex+1} / ${questions.size}"
     }
 
 
