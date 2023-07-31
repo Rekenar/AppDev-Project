@@ -128,7 +128,6 @@ class GameFragment : Fragment() {
             if (accel > 14) {
                 if(hints > 0) {
                     hints -= 1
-                    Toast.makeText(context, "Shake detected", Toast.LENGTH_SHORT).show()
                     binding.txtHints.text = "Skips: $hints"
                     nextQuestion(-1)
                 }
