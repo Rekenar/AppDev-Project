@@ -38,7 +38,7 @@ class GameFragment : Fragment() {
     private lateinit var questions: List<QuestionsDataClass>
     private var questionIndex:Int = 0
     lateinit var difficulty:String
-
+    private var hints: Int = 3
     private lateinit var db:QuestionsDatabase
 
     private val args: GameFragmentArgs by navArgs()
@@ -66,7 +66,12 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         id = args.identifier
+
+        binding.txtHints.text = "Skips: $hints"
+
+
 
         setupUI()
         fetchQuestions()
@@ -120,9 +125,13 @@ class GameFragment : Fragment() {
 
             // Display a Toast message if
             // acceleration value is over 12
-            if (accel > 10) {
-                Toast.makeText(context,"Shake detected", Toast.LENGTH_SHORT).show()
-                nextQuestion(-1)
+            if (accel > 14) {
+                if(hints > 0) {
+                    hints -= 1
+                    Toast.makeText(context, "Shake detected", Toast.LENGTH_SHORT).show()
+                    binding.txtHints.text = "Skips: $hints"
+                    nextQuestion(-1)
+                }
             }
         }
         override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
