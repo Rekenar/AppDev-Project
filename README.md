@@ -26,11 +26,9 @@ Sobald du ein Quiz ausgewählt hast, gelangst du zu einer praktischen Übersicht
 
 Wenn du bereit bist, das Quiz zu starten, klicke einfach auf den Floating-Button unten rechts auf dem Bildschirm. Sobald du diesen Button gedrückt hast, beginnt das Spiel und die Teilnehmer können ihre Antworten auf die Fragen abgeben.
 
+---
 
-<img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/Game.png" align="left"  width="200"/>
-
-<br clear="left"/>
-
+<img src="https://github.com/Rekenar/AppDev-Project/blob/main/Img/Game.png" align="right"  width="100" height="150"/>
 
 Während des Spielens wird dir oben rechts auf dem Bildschirm angezeigt, bei welcher Frage du dich gerade befindest. Das ermöglicht, den Fortschritt im Quiz im Blick zu behalten.
 
@@ -38,6 +36,6 @@ In der oberen linken Ecke findest du einen Zähler, der mitzählt, wie viele Fra
 
 In der Mitte rechts des Bildschirms wird die Anzahl der verbleibenden Skips angezeigt. Skips ermöglichen es dir, eine Frage zu überspringen, falls du sie nicht beantworten möchtest oder dir unsicher bist.
 
-
+---
 
 
